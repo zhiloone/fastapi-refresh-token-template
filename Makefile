@@ -3,3 +3,9 @@ run:
 
 docker-run:
 	docker compose up --build --watch
+
+fix:
+	uv run ruff check --fix
+
+format:
+	uv run ruff format

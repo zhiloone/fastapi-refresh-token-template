@@ -1,8 +1,19 @@
+from contextlib import asynccontextmanager
 from typing import Union
 
 from fastapi import FastAPI
 
-app = FastAPI()
+from src.database import init_db
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Handles startup and shutdown events"""
+    init_db()
+    yield
+
+
+app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/")
