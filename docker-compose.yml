@@ -1,11 +1,13 @@
 services:
   db:
-    image: postgres
+    image: postgres:15
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 1s
@@ -39,3 +41,6 @@ services:
         # Rebuild the image if dependencies change by checking uv.lock
         - action: rebuild
           path: ./uv.lock
+
+# volumes:
+#   postgres_data:
